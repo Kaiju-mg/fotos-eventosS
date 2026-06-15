@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ImageOff } from 'lucide-react'
 import { createClient } from '@/lib/supabase-browser'
 import type { Foto } from '@/types/database'
 
@@ -42,9 +43,9 @@ export function GaleriaRealtime({ fotosIniciales, eventoId, mostrarNombre = true
 
   if (fotos.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-400">
-        <p className="text-4xl mb-2">📸</p>
-        <p>Todavía no hay fotos. ¡Sé el primero en compartir!</p>
+      <div className="flex flex-col items-center gap-3 py-16 text-gray-300">
+        <ImageOff className="w-8 h-8" strokeWidth={1.5} />
+        <p className="text-sm text-gray-400">Todavía no hay fotos. ¡Sé el primero en compartir!</p>
       </div>
     )
   }
@@ -52,7 +53,7 @@ export function GaleriaRealtime({ fotosIniciales, eventoId, mostrarNombre = true
   return (
     <div className="columns-2 md:columns-3 gap-2 space-y-2">
       {fotos.map((foto) => (
-        <div key={foto.id} className="relative break-inside-avoid rounded-xl overflow-hidden">
+        <div key={foto.id} className="relative break-inside-avoid rounded-xl overflow-hidden group">
           <img
             src={foto.url_archivo}
             alt={foto.nombre_invitado || 'Foto del evento'}
@@ -60,7 +61,7 @@ export function GaleriaRealtime({ fotosIniciales, eventoId, mostrarNombre = true
             loading="lazy"
           />
           {mostrarNombre && foto.nombre_invitado && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <p className="text-white text-xs font-medium truncate">{foto.nombre_invitado}</p>
             </div>
           )}
