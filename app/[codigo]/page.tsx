@@ -30,50 +30,47 @@ export default async function PaginaInvitado(props: PageProps<'/[codigo]'>) {
   const fotosIniciales: Foto[] = fotos ?? []
 
   return (
-    <main className="max-w-md mx-auto px-5">
-      <header className="py-10 border-b border-gray-100">
-        <p className="text-[11px] tracking-widest text-gray-400 uppercase mb-2">
+    <main className="max-w-md mx-auto px-5 pb-12">
+      <header className="py-8 border-b border-stone-100">
+        <p className="text-xs font-medium tracking-widest text-stone-400 uppercase mb-2">
           {new Date(evento.fecha).toLocaleDateString('es-AR', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
           })}
         </p>
-        <h1 className="text-xl font-medium text-gray-900 leading-snug">{evento.nombre}</h1>
+        <h1 className="text-2xl font-bold text-stone-800 leading-snug">{evento.nombre}</h1>
         <div className="flex gap-5 mt-4">
           <Link
             href={`/${codigo}/galeria`}
-            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex items-center gap-2 text-sm text-stone-500 hover:text-stone-700 transition-colors"
           >
-            <Images className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <Images className="w-4 h-4" strokeWidth={1.5} />
             Ver galería
           </Link>
           <Link
             href={`/${codigo}/tv`}
-            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex items-center gap-2 text-sm text-stone-500 hover:text-stone-700 transition-colors"
           >
-            <Monitor className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <Monitor className="w-4 h-4" strokeWidth={1.5} />
             Modo pantalla
           </Link>
         </div>
       </header>
 
       <section className="py-8">
+        <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">
+          Compartir foto
+        </p>
         <SubirFoto evento={evento} />
       </section>
 
-      {fotosIniciales.length > 0 && (
-        <section className="pb-12">
-          <p className="text-[11px] tracking-widest text-gray-400 uppercase mb-5">Fotos</p>
-          <GaleriaRealtime fotosIniciales={fotosIniciales} eventoId={evento.id} />
-        </section>
-      )}
-
-      {fotosIniciales.length === 0 && (
-        <section className="pb-12">
-          <GaleriaRealtime fotosIniciales={fotosIniciales} eventoId={evento.id} />
-        </section>
-      )}
+      <section>
+        <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-5">
+          Fotos del evento
+        </p>
+        <GaleriaRealtime fotosIniciales={fotosIniciales} eventoId={evento.id} />
+      </section>
     </main>
   )
 }
