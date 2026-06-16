@@ -182,7 +182,6 @@ export function SubirFoto({ evento }: { evento: Evento }) {
         ref={inputRef}
         type="file"
         accept="image/*,image/heic,image/heif,video/*"
-        capture="environment"
         onChange={onFileSelect}
         className="hidden"
       />
