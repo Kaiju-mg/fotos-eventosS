@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useTransition } from 'react'
-import { Camera, X, CheckCircle, Upload } from 'lucide-react'
+import { Camera, X, Check, ArrowUp } from 'lucide-react'
 import { createClient } from '@/lib/supabase-browser'
 import { registrarFoto } from '@/app/actions'
 import type { Evento } from '@/types/database'
@@ -71,9 +71,7 @@ export function SubirFoto({ evento }: { evento: Evento }) {
 
       setProgreso(100)
       setEstado('success')
-      setTimeout(() => {
-        cancelar()
-      }, 3000)
+      setTimeout(cancelar, 3000)
     } catch (err) {
       setEstado('error')
       setErrorMsg(err instanceof Error ? err.message : 'Error al subir la foto')
@@ -82,12 +80,11 @@ export function SubirFoto({ evento }: { evento: Evento }) {
 
   if (estado === 'success') {
     return (
-      <div className="flex flex-col items-center gap-3 py-10 text-center">
-        <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center">
-          <CheckCircle className="w-7 h-7 text-green-500" strokeWidth={1.5} />
+      <div className="flex flex-col items-center gap-3 py-12 text-center">
+        <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center">
+          <Check className="w-4 h-4 text-gray-600" strokeWidth={1.5} />
         </div>
-        <p className="text-base font-medium text-gray-800">Foto compartida</p>
-        <p className="text-sm text-gray-400">Ya aparece en la galería</p>
+        <p className="text-sm text-gray-600">Foto compartida</p>
       </div>
     )
   }
@@ -97,24 +94,23 @@ export function SubirFoto({ evento }: { evento: Evento }) {
       {!preview ? (
         <button
           onClick={() => inputRef.current?.click()}
-          className="flex flex-col items-center justify-center gap-3 border border-gray-200 rounded-2xl p-10 text-gray-400 hover:border-gray-400 hover:text-gray-600 transition-colors cursor-pointer bg-gray-50"
+          className="flex flex-col items-center justify-center gap-3 border border-gray-200 rounded-xl py-12 text-gray-400 hover:border-gray-400 hover:text-gray-600 transition-colors bg-white"
         >
-          <Camera className="w-8 h-8" strokeWidth={1.5} />
-          <span className="text-sm font-medium">Elegir foto o video</span>
-          <span className="text-xs text-gray-400">Máximo 20 MB</span>
+          <Camera className="w-6 h-6" strokeWidth={1.5} />
+          <span className="text-xs">Elegir foto o video</span>
         </button>
       ) : (
         <div className="relative">
           <img
             src={preview}
             alt="Vista previa"
-            className="w-full rounded-2xl object-cover max-h-80"
+            className="w-full rounded-xl object-cover max-h-72"
           />
           <button
             onClick={cancelar}
-            className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/70 transition-colors"
+            className="absolute top-2.5 right-2.5 bg-white/80 backdrop-blur-sm rounded-full w-7 h-7 flex items-center justify-center hover:bg-white transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5 text-gray-700" />
           </button>
         </div>
       )}
@@ -136,7 +132,7 @@ export function SubirFoto({ evento }: { evento: Evento }) {
             onChange={(e) => setNombre(e.target.value)}
             placeholder="Tu nombre (opcional)"
             maxLength={50}
-            className="border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white"
+            className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-400"
           />
 
           {errorMsg && (
@@ -144,9 +140,9 @@ export function SubirFoto({ evento }: { evento: Evento }) {
           )}
 
           {estado === 'uploading' && (
-            <div className="w-full bg-gray-100 rounded-full h-1">
+            <div className="w-full bg-gray-100 rounded-full h-px">
               <div
-                className="bg-gray-800 h-1 rounded-full transition-all duration-300"
+                className="bg-gray-900 h-px rounded-full transition-all duration-500"
                 style={{ width: `${progreso}%` }}
               />
             </div>
@@ -155,10 +151,10 @@ export function SubirFoto({ evento }: { evento: Evento }) {
           <button
             onClick={subir}
             disabled={estado === 'uploading'}
-            className="flex items-center justify-center gap-2 bg-gray-900 text-white font-medium rounded-xl py-3.5 text-sm hover:bg-gray-700 disabled:opacity-40 transition-colors"
+            className="flex items-center justify-center gap-2 bg-gray-900 text-white text-sm rounded-lg py-3 hover:bg-black disabled:opacity-40 transition-colors"
           >
-            <Upload className="w-4 h-4" strokeWidth={1.5} />
-            {estado === 'uploading' ? 'Subiendo...' : 'Compartir foto'}
+            <ArrowUp className="w-3.5 h-3.5" strokeWidth={2} />
+            {estado === 'uploading' ? 'Subiendo...' : 'Compartir'}
           </button>
         </>
       )}
