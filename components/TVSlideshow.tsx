@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
+import { Camera } from 'lucide-react'
 import { createClient } from '@/lib/supabase-browser'
 import type { Foto, Evento } from '@/types/database'
 
@@ -62,9 +63,9 @@ export function TVSlideshow({ fotosIniciales, evento }: Props) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center">
         <div className="text-center text-white">
-          <p className="text-8xl mb-6">📷</p>
+          <Camera className="w-10 h-10 text-gray-600 mx-auto mb-6" strokeWidth={1} />
           <p className="text-3xl font-light">{evento.nombre}</p>
-          <p className="text-xl text-gray-400 mt-4">Esperando fotos...</p>
+          <p className="text-lg text-gray-500 mt-4">Esperando fotos...</p>
         </div>
       </div>
     )
