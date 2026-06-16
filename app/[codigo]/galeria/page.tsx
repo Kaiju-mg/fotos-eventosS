@@ -28,7 +28,7 @@ export default async function GaleriaPage(props: PageProps<'/[codigo]/galeria'>)
   const fotosIniciales: Foto[] = fotos ?? []
 
   return (
-    <main className="max-w-4xl mx-auto px-5 pb-12">
+    <main className="max-w-5xl mx-auto px-4 pb-12">
       <header className="py-8 border-b border-stone-100 flex items-end justify-between">
         <div>
           <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-1.5">Galería</p>

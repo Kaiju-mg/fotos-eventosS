@@ -42,25 +42,37 @@ export function GaleriaRealtime({ fotosIniciales, eventoId, mostrarNombre = true
 
   if (fotos.length === 0) {
     return (
-      <div className="py-14 text-center">
+      <div className="py-16 text-center">
         <p className="text-sm text-stone-400">Todavía no hay fotos. ¡Sé el primero en compartir!</p>
       </div>
     )
   }
 
   return (
-    <div className="columns-2 md:columns-3 gap-2 space-y-2">
+    <div
+      style={{
+        columnCount: 2,
+        columnGap: '8px',
+      }}
+      className="md:[column-count:3]"
+    >
       {fotos.map((foto) => (
-        <div key={foto.id} className="relative break-inside-avoid overflow-hidden rounded-xl group">
+        <div
+          key={foto.id}
+          style={{ breakInside: 'avoid', marginBottom: '8px' }}
+          className="relative group overflow-hidden rounded-2xl"
+        >
           <img
             src={foto.url_archivo}
             alt={foto.nombre_invitado || 'Foto del evento'}
-            className="w-full object-cover"
+            className="w-full object-cover block transition-transform duration-500 group-hover:scale-[1.03]"
             loading="lazy"
           />
           {mostrarNombre && foto.nombre_invitado && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-3 opacity-0 group-hover:opacity-100 transition-opacity">
-              <p className="text-white text-sm font-medium truncate">{foto.nombre_invitado}</p>
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <span className="m-2.5 px-2.5 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs font-medium">
+                {foto.nombre_invitado}
+              </span>
             </div>
           )}
         </div>
